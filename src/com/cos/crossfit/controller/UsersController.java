@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.cos.crossfit.action.Action;
 
 import com.cos.crossfit.action.user.UsersJoinProcAction;
+import com.cos.crossfit.action.user.UsersLoginAction;
+import com.cos.crossfit.action.user.UsersLoginProcAction;
 import com.cos.crossfit.action.user.UsersUsernameCheckAction;
 
 @WebServlet("/user")
@@ -47,6 +49,12 @@ public class UsersController extends HttpServlet {
 		}else if (cmd.equals("usernameCheck")) {
 			// 회원 가입 페이지로 이동
 			return new UsersUsernameCheckAction();
+		}else if (cmd.equals("login")) {
+			// 회원 가입 페이지로 이동
+			return new UsersLoginAction();
+		}else if (cmd.equals("loginProc")) {
+			// 회원 가입 페이지로 이동
+			return new UsersLoginProcAction();
 		}
 		return null;
 	}

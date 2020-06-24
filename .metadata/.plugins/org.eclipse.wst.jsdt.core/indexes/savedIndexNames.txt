@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\project\crossfit\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3420850142.index
+285466648.index
+329179240.index
+1324239892.index
+547863804.index
+508206068.index

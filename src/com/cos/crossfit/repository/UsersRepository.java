@@ -24,6 +24,43 @@ public class UsersRepository {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 
+
+
+	public Users findByUsernameAndPassword(String username, String password) {
+		final String SQL = "SELECT id,username,email,address,userProfile,userRole,createDate FROM users"
+                         + " WHERE username = ? AND password = ?";  
+		Users user = null;
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+
+			pstmt.setString(1, username);
+            pstmt.setString(2, password);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+			 user = Users.builder()
+					.id(rs.getInt("id"))
+					.username(rs.getString("username"))
+					.email(rs.getString("email"))
+					.address(rs.getString("address"))
+					.userProfile(rs.getString("userProfile"))
+					.userRole(rs.getString("userRole"))
+					.createDate(rs.getTimestamp("createDate"))
+					.build(); 
+			}
+		
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findByUsernameAndpassword():" + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt, rs);
+		}
+		return null;
+	}
+	
 	public int findByUsername(String username) {
 		final String SQL = "SELECT count(*) FROM users " + "WHERE username = ?";
 
@@ -61,6 +98,8 @@ public class UsersRepository {
 			pstmt.setString(3, user.getEmail());
 			pstmt.setString(4, user.getAddress());
 			pstmt.setString(5, user.getUserRole());
+		
+		    return pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(TAG + "save : " + e.getMessage());
 		} finally {
